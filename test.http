@@ -1,0 +1,19 @@
+POST http://localhost:9090/v1/merchants
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Sammi Aldhi Yanto",
+  "email": "sammidev@gmail.com",
+  "password": "sammidev"
+}
+
+###
+
+POST http://localhost:9090/v1/merchants/auth
+Content-Type: application/json
+
+{
+  "email": "sammidev@gmail.com",
+  "password": "sammidev"
+}
