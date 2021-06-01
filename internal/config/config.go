@@ -1,10 +1,11 @@
 package config
 
 import (
+	"github.com/joho/godotenv"
+	"log"
 	"os"
+	"strconv"
 	"time"
-
-	"github.com/spf13/viper"
 )
 
 type Config struct {
@@ -36,39 +37,56 @@ type Config struct {
 }
 
 func load() Config {
-	fang := viper.New()
-
-	fang.SetConfigFile(".env")
-	fang.AddConfigPath(".")
-	configLocation, available := os.LookupEnv("CONFIG_LOCATION")
-	if available {
-		fang.AddConfigPath(configLocation)
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Error loading .env file")
 	}
 
-	fang.AutomaticEnv()
-	fang.ReadInConfig()
+	AppPort, err := strconv.Atoi(os.Getenv("AppPort"))
+	HttpRateLimitRequest, err := strconv.Atoi(os.Getenv("HttpRateLimitRequest"))
+	HttpRateLimitTime,err := time.ParseDuration(os.Getenv("HttpRateLimitTime"))
+	JwtSecretKey := os.Getenv("JwtSecretKey")
+	JwtTTL, err := time.ParseDuration(os.Getenv("JwtTTL"))
+	PaginationLimit, err := strconv.Atoi(os.Getenv("PaginationLimit"))
+	MysqlUser := os.Getenv("MysqlUser")
+	MysqlPassword := os.Getenv("MysqlPassword")
+	MysqlHost := os.Getenv("MysqlHost")
+	MysqlPort,err := strconv.Atoi(os.Getenv("MysqlPort"))
+	MysqlDatabase := os.Getenv("MysqlDatabase")
+	MysqlMaxIdleConns,err := strconv.Atoi(os.Getenv("MysqlMaxIdleConns"))
+	MysqlMaxOpenConns,err := strconv.Atoi(os.Getenv("MysqlMaxOpenConns"))
+	MysqlConnMaxLifetime,err := time.ParseDuration(os.Getenv("MysqlConnMaxLifetime"))
+	RedisPassword := os.Getenv("RedisPassword")
+	RedisHost := os.Getenv("RedisHost")
+	RedisPort,err := strconv.Atoi(os.Getenv("RedisPort"))
+	RedisDatabase, err := strconv.Atoi(os.Getenv("RedisDatabase"))
+	RedisPoolSize, err := strconv.Atoi(os.Getenv("RedisPoolSize"))
+	RedisTTL,err := time.ParseDuration(os.Getenv("RedisTTL"))
+
+	if err != nil {
+		log.Fatal("error in get value from .env")
+	}
 
 	return Config{
-		AppPort:              9090,
-		HttpRateLimitRequest: 100,
-		HttpRateLimitTime:    time.Second,
-		JwtSecretKey:         "secret",
-		JwtTTL:               time.Hour * 48,
-		PaginationLimit:      100,
-		MysqlUser:            "sammidev",
-		MysqlPassword:        "sammidev",
-		MysqlHost:            "localhost",
-		MysqlPort:            3306,
-		MysqlDatabase:        "test",
-		MysqlMaxIdleConns:    5,
-		MysqlMaxOpenConns:    10,
-		MysqlConnMaxLifetime: time.Minute * 30,
-		RedisPassword:        "",
-		RedisHost:            "localhost",
-		RedisPort:            6379,
-		RedisDatabase:        0,
-		RedisPoolSize:        10,
-		RedisTTL:             time.Hour*1,
+		AppPort:              AppPort,
+		HttpRateLimitRequest: HttpRateLimitRequest,
+		HttpRateLimitTime:    HttpRateLimitTime,
+		JwtSecretKey:         JwtSecretKey,
+		JwtTTL:               JwtTTL,
+		PaginationLimit:      PaginationLimit,
+		MysqlUser:            MysqlUser,
+		MysqlPassword:        MysqlPassword,
+		MysqlHost:            MysqlHost,
+		MysqlPort:            MysqlPort,
+		MysqlDatabase:        MysqlDatabase,
+		MysqlMaxIdleConns:    MysqlMaxIdleConns,
+		MysqlMaxOpenConns:    MysqlMaxOpenConns,
+		MysqlConnMaxLifetime: MysqlConnMaxLifetime,
+		RedisPassword:        RedisPassword,
+		RedisHost:            RedisHost,
+		RedisPort:            RedisPort,
+		RedisDatabase:        RedisDatabase,
+		RedisPoolSize:        RedisPoolSize,
+		RedisTTL:             RedisTTL,
 	}
 }
 

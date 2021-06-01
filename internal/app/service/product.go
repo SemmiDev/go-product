@@ -110,7 +110,7 @@ func (s *productService) Delete(ctx context.Context, req model.ProductDeleteRequ
 func (s *productService) switchErrProductNotFoundOrErrServer(err error) error {
 	switch err {
 	case sql.ErrNoRows:
-		return constant.ErrPostNotFound
+		return constant.ErrProductNotFound
 	default:
 		logger.Log().Err(err).Msg("failed to execute operation product repository")
 		return constant.ErrServer

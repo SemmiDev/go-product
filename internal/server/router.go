@@ -56,9 +56,9 @@ func NewRouter(mysqlClient mysql.Client, redisClient redis.Client) *chi.Mux {
 	api.Route("/products", func(r chi.Router) {
 		r.With(middleware.JWTVerifier).Post("/", productHandler.Create())
 		r.Get("/", productHandler.List())
-		r.Get("/{post_id}", productHandler.Get())
-		r.With(middleware.JWTVerifier).Put("/{post_id}", productHandler.Update())
-		r.With(middleware.JWTVerifier).Delete("/{post_id}", productHandler.Delete())
+		r.Get("/{product_id}", productHandler.Get())
+		r.With(middleware.JWTVerifier).Put("/{product_id}", productHandler.Update())
+		r.With(middleware.JWTVerifier).Delete("/{product_id}", productHandler.Delete())
 	})
 
 	return router

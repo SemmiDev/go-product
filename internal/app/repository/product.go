@@ -61,7 +61,7 @@ func (r productRepository) List(ctx context.Context, limit, offset int, title st
 	ON
 		product.merchant_id = merchant.id
 	WHERE
-		product.title LIKE ?
+		product.name LIKE ?
 	LIMIT
 		? OFFSET ?
 	`, "%"+title+"%", limit, offset)

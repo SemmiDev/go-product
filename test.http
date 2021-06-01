@@ -56,3 +56,89 @@ Content-Type: application/json
   "email": "sammidev@gmail.com",
   "password": "sammidev12345"
 }
+
+### create a account
+POST http://localhost:9090/v1/merchants
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Sam",
+  "email": "sammi@gmail.com",
+  "password": "sammidev123"
+}
+
+### login as merchant
+POST http://localhost:9090/v1/merchants/auth
+Content-Type: application/json
+
+{
+  "email": "sammi@gmail.com",
+  "password": "sammidev123"
+}
+
+### create a product
+POST http://localhost:9090/v1/products
+X-API-Key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjI2ODcxNTMsImlkIjoyfQ.W2-PFTB9hpUEmvtR0aZpGnIVUEho0ueXXyIx5Dt048Q
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Ayam goreng",
+  "price": 200000
+}
+
+### get all products
+GET http://localhost:9090/v1/products
+Accept: application/json
+
+###
+GET http://localhost:9090/v1/products?name=goreng
+Accept: application/json
+
+###
+GET http://localhost:9090/v1/products?offset=0&limit=1
+Accept: application/json
+
+###
+GET http://localhost:9090/v1/products?offset=0&limit=1&name=Ayam
+Accept: application/json
+
+###
+GET http://localhost:9090/v1/products/1
+Accept: application/json
+
+### create a account
+POST http://localhost:9090/v1/merchants
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "test",
+  "email": "test@gmail.com",
+  "password": "test12345"
+}
+
+### login as merchant
+POST http://localhost:9090/v1/merchants/auth
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "test12345"
+}
+
+###
+PUT http://localhost:9090/v1/products/1
+X-API-Key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjI2ODc0NjgsImlkIjoyfQ.8Pqvt9YVnfZE-UiJyPEPXseAOgPkiVmOmgt21mnwbXI
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Ayam goreng 2",
+  "price": 300000
+}
+
+###
+DELETE http://localhost:9090/v1/products/1
+X-API-Key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjI2ODc0NjgsImlkIjoyfQ.8Pqvt9YVnfZE-UiJyPEPXseAOgPkiVmOmgt21mnwbXI
