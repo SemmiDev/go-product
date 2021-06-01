@@ -29,12 +29,15 @@ func NewRouter(mysqlClient mysql.Client, redisClient redis.Client) *chi.Mux {
 	router.Use(chimiddleware.Recoverer)
 
 	merchantRepository := repository.NewMerchantRepository(mysqlClient, redisClient)
+	productRepository := repository.NewProductRepository(mysqlClient, redisClient)
 
 	authService := service.NewAuthService(merchantRepository)
 	merchantService := service.NewMerchantService(merchantRepository)
+	productService := service.NewProductService(productRepository)
 
 	authHandler := handler.NewAuthHandler(authService)
 	merchantHandler := handler.NewMerchantHandler(merchantService)
+	productHandler := handler.NewProductHandler(productService)
 
 	router.Options("/*", func(w http.ResponseWriter, r *http.Request) {})
 	api := router.Route("/v1", func(router chi.Router) {})
@@ -48,6 +51,14 @@ func NewRouter(mysqlClient mysql.Client, redisClient redis.Client) *chi.Mux {
 		r.With(middleware.JWTVerifier).Put("/{merchant_id}", merchantHandler.Update())
 		r.With(middleware.JWTVerifier).Put("/{merchant_id}/password", merchantHandler.UpdatePassword())
 		r.With(middleware.JWTVerifier).Delete("/{merchant_id}", merchantHandler.Delete())
+	})
+
+	api.Route("/products", func(r chi.Router) {
+		r.With(middleware.JWTVerifier).Post("/", productHandler.Create())
+		r.Get("/", productHandler.List())
+		r.Get("/{post_id}", productHandler.Get())
+		r.With(middleware.JWTVerifier).Put("/{post_id}", productHandler.Update())
+		r.With(middleware.JWTVerifier).Delete("/{post_id}", productHandler.Delete())
 	})
 
 	return router

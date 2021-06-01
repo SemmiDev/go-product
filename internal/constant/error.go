@@ -21,7 +21,7 @@ var (
 	ErrEmailNotRegistered = errors.New("Email not registered")
 	ErrWrongPassword      = errors.New("Password incorrect")
 
-	ErrPostNotFound = errors.New("Post not found")
+	ErrProductNotFound = errors.New("Product not found")
 )
 
 func NewErrFieldValidation(err validator.FieldError) error {
