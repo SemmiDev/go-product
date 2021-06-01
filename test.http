@@ -1,3 +1,4 @@
+### create a account
 POST http://localhost:9090/v1/merchants
 Accept: application/json
 Content-Type: application/json
@@ -8,12 +9,50 @@ Content-Type: application/json
   "password": "sammidev"
 }
 
-###
-
+### login as merchant
 POST http://localhost:9090/v1/merchants/auth
 Content-Type: application/json
 
 {
   "email": "sammidev@gmail.com",
   "password": "sammidev"
+}
+
+### get all merchants
+GET http://localhost:9090/v1/merchants?limit=1&offset=0&name=Sammi
+Accept: application/json
+
+### get merchant by id
+GET http://localhost:9090/v1/merchants/1
+Accept: application/json
+
+### update merchant by id
+PUT http://localhost:9090/v1/merchants/1
+X-API-Key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjI2ODMwOTMsImlkIjoxfQ.V45ZaWeO91NGPXoVk4qvhKUXFi18yTVZ5CrQx7GPkGI
+Accept: application/json
+Content-Type: application/json
+
+{
+   "name": "sammidev",
+   "email": "sammidev@gmail.com"
+}
+
+### update merchant password by id
+PUT http://localhost:9090/v1/merchants/1/password
+X-API-Key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjI2ODMwOTMsImlkIjoxfQ.V45ZaWeO91NGPXoVk4qvhKUXFi18yTVZ5CrQx7GPkGI
+Accept: application/json
+Content-Type: application/json
+
+{
+  "old_password": "sammidev123",
+  "new_password": "sammidev12345"
+}
+
+### login as merchant
+POST http://localhost:9090/v1/merchants/auth
+Content-Type: application/json
+
+{
+  "email": "sammidev@gmail.com",
+  "password": "sammidev12345"
 }
