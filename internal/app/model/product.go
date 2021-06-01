@@ -17,8 +17,8 @@ type Product struct {
 }
 
 type ProductCreateRequest struct {
-	Name      string `json:"name" validate:"required"`
-	Price     float32 `json:"price" validate:"required"`
+	Name  string  `json:"name" validate:"required"`
+	Price float32 `json:"price" validate:"required"`
 }
 
 type ProductListRequest struct {
@@ -32,9 +32,9 @@ type ProductGetRequest struct {
 }
 
 type ProductUpdateRequest struct {
-	ID    int64  `json:"-"`
-	Name      string `json:"name" validate:"required"`
-	Price     float32 `json:"price" validate:"required"`
+	ID    int64   `json:"-"`
+	Name  string  `json:"name" validate:"required"`
+	Price float32 `json:"price" validate:"required"`
 }
 
 type ProductDeleteRequest struct {
@@ -43,8 +43,8 @@ type ProductDeleteRequest struct {
 
 type ProductResponse struct {
 	ID        int64      `json:"id"`
-	Name      string `json:"name"`
-	Price     float32 `json:"price"`
+	Name      string     `json:"name"`
+	Price     float32    `json:"price"`
 	CreatedAt time.Time  `json:"created_at"`
 	UpdatedAt *time.Time `json:"updated_at"`
 
@@ -55,8 +55,8 @@ type ProductResponse struct {
 func NewProductResponse(payload *Product) *ProductResponse {
 	res := &ProductResponse{
 		ID:         payload.ID,
-		Name: payload.Name,
-		Price: payload.Price,
+		Name:       payload.Name,
+		Price:      payload.Price,
 		CreatedAt:  payload.CreatedAt,
 		MerchantID: payload.MerchantID,
 		Merchant:   NewMerchantResponse(&payload.Merchant),
